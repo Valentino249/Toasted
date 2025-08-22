@@ -1,8 +1,6 @@
 scene_map = [
     '                                 ',
     '                                 ',
-    '              XXX                ',
-    '               L                 ',
     '                                 ',
     '                                 ',
     '                                 ',
@@ -13,20 +11,15 @@ scene_map = [
     '                                 ',
     '                                 ',
     '                                 ',
-    '     SSSSSS              P       ',
-    '     XXXXXX           SSSSSSS    ',
-    '     XXXXXX           XXXXXXX    ',
-    '     XXXXXXSSSSSSSSSSSXXXXXX     ',
-    '     XXXXXXXXXXXXXXXXXXXXX       ',
-    '     XXXXXXXXXXXXXXXXXXXXX       ',
-    'WWWWWWXXXXXXXXXXXXXXXXXXXWWWWWWWW',
-    'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
-    'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
-    'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
-    'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',]
+    '                    P            ',
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX']
 
 tile_size = 30
 
 screen_height = tile_size * len(scene_map)
-screen_width = tile_size * 33
+screen_width = tile_size * len(scene_map[0])
 

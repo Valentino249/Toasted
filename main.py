@@ -2,6 +2,7 @@ import pygame, sys, os
 from settings import screen_height, screen_width, scene_map
 from display import Display
 from scene import Scene
+from cooking_scene import CookingScene
 
 class GameState:
     """This class holds all the different game states (screens) that the game needs to display."""
@@ -23,7 +24,7 @@ class GameState:
         screen.fill('black')
         title_display.view()
         if start_button.draw_btn(start_inverted_img):
-            self.state = 'main_game'
+            self.state = 'cooking_view'
         if exit_button.draw_btn(exit_inverted_img):
             pygame.quit()
             sys.exit()
@@ -37,7 +38,19 @@ class GameState:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+        # Displaying the background
+        background_display.view()
+        scene.run()
         pygame.display.update()
+
+    def cooking_view(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+        cooking_scene.run()
+        pygame.display.update()
+
 
     def state_manager(self):
         """When the state_manager() method is run, the "state" attribute is checked and the corresponding screen is
@@ -50,6 +63,8 @@ class GameState:
             self.winning_screen()
         if self.state == 'losing_screen':
             self.losing_screen()
+        if self.state == 'cooking_view':
+            self.cooking_view()
 
 # Setting up pygame
 pygame.init()
@@ -75,6 +90,8 @@ game_over_img = pygame.image.load(os.path.join('assets', 'game_over_1.png')).con
 # Tile Sprites
 char_img = pygame.image.load(os.path.join('assets', 'main_char_2.png')).convert_alpha()
 tile_img = pygame.image.load(os.path.join('assets', 'whats_above_tile_2.png')).convert_alpha()
+background_img = pygame.image.load(os.path.join('assets', 'background_3.png')).convert_alpha()
+cooking_background_img = pygame.image.load(os.path.join('assets', 'bg_5.png')).convert_alpha()
 
 # Creating Display instances
 start_button = Display((100, screen_height - 225), start_img, screen, True)
@@ -83,9 +100,11 @@ play_again_button = Display((100, screen_height - 225), play_again_img, screen, 
 title_display = Display((0, 0), title_img, screen, False)
 you_won_display = Display((screen_width / 2 - (you_won_img.get_width() / 2), 200), you_won_img, screen, False)
 game_over_display = Display((screen_width / 2 - (game_over_img.get_width() / 2), 200), game_over_img, screen, False)
+background_display = Display((0, 0), background_img, screen, False)
 
 # Creating a scene instance
 scene = Scene(scene_map, screen, char_img, tile_img)
+cooking_scene = CookingScene(screen, cooking_background_img)
 
 # Main game loop
 while True:
