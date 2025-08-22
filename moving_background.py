@@ -11,37 +11,35 @@ class MovingBackground(pygame.sprite.Sprite):
 
         # Movement
         self.direction = pygame.math.Vector2(0, 0)
-        self.speed = 6
+        self.speed = 12
 
         self.state = "up"
 
     def get_input(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_w] or keys[pygame.K_UP]:
+        if (keys[pygame.K_w] or keys[pygame.K_UP]) and self.state == "down":
             self.state = "move-up"
-            print("up")
-        elif keys[pygame.K_s] or keys[pygame.K_DOWN]:
+        elif (keys[pygame.K_s] or keys[pygame.K_DOWN]) and self.state == "up":
             self.state = "move-down"
-            print("down")
-
     def shift(self):
         if self.state == 'move-up':
-            self.direction.y = 2
+            self.direction.y = 1
         elif self.state == 'move-down':
-            self.direction.y = -2
+            self.direction.y = -1
         elif self.state == 'up' or self.state == 'down':
             self.direction.y = 0
 
-        self.rect.y += self.direction.y
+        self.rect.y += self.direction.y * self.speed
 
     def check_finished(self):
-        if self.rect.bottom >= screen_height:
+        if self.rect.bottom <= screen_height:
             self.state = "down"
-        elif self.rect.top <= 0:
+        elif self.rect.top >= 0:
             self.state = "up"
 
     def update(self):
-        print("update")
+        print(self.state)
+        self.check_finished()
         self.get_input()
         self.shift()
 
