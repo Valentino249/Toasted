@@ -8,11 +8,6 @@ class GameState:
     """This class holds all the different game states (screens) that the game needs to display."""
     def __init__(self):
         self.state = 'title_screen'
-        self.current_event = "none"
-        self.sail_fixed = True
-        self.tsunami_showing = False
-        self.seagulls_showing = False
-        self.wind_showing = False
 
     def title_screen(self):
         """Displays the title screen of the game."""
@@ -92,6 +87,11 @@ char_img = pygame.image.load(os.path.join('assets', 'main_char_2.png')).convert_
 tile_img = pygame.image.load(os.path.join('assets', 'whats_above_tile_2.png')).convert_alpha()
 background_img = pygame.image.load(os.path.join('assets', 'background_3.png')).convert_alpha()
 cooking_background_img = pygame.image.load(os.path.join('assets', 'bg_5.png')).convert_alpha()
+white_img = pygame.image.load(os.path.join('assets', 'white.png')).convert_alpha()
+golden_img = pygame.image.load(os.path.join('assets', 'golden.png')).convert_alpha()
+brown_img = pygame.image.load(os.path.join('assets', 'brown.png')).convert_alpha()
+black_img = pygame.image.load(os.path.join('assets', 'black.png')).convert_alpha()
+flaming_img = pygame.image.load(os.path.join('assets', 'flaming.png')).convert_alpha()
 
 # Creating Display instances
 start_button = Display((100, screen_height - 225), start_img, screen, True)
@@ -104,7 +104,7 @@ background_display = Display((0, 0), background_img, screen, False)
 
 # Creating a scene instance
 scene = Scene(scene_map, screen, char_img, tile_img)
-cooking_scene = CookingScene(screen, cooking_background_img)
+cooking_scene = CookingScene(screen, cooking_background_img, white_img, golden_img, brown_img, black_img, flaming_img)
 
 # Main game loop
 while True:

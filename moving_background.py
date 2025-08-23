@@ -7,7 +7,7 @@ class MovingBackground(pygame.sprite.Sprite):
         super().__init__()
         self.image = image
         self.width = image.get_width()
-        self.rect = self.image.get_rect(topleft=(0, 0))
+        self.rect = self.image.get_rect(topleft=(0, (image.get_height()/2) * -1))
 
         # Movement
         self.direction = pygame.math.Vector2(0, 0)
