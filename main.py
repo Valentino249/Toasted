@@ -17,7 +17,6 @@ class GameState:
                 pygame.quit()
                 sys.exit()
         screen.fill('black')
-        title_display.view()
         if start_button.draw_btn(start_inverted_img):
             self.state = 'cooking_view'
         if exit_button.draw_btn(exit_inverted_img):
@@ -64,7 +63,7 @@ class GameState:
 # Setting up pygame
 pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('You are on a B.O.A.T.')
+pygame.display.set_caption('Toasted')
 clock = pygame.time.Clock()
 fps = 60
 game_state = GameState()

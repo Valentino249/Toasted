@@ -21,6 +21,7 @@ class MovingBackground(pygame.sprite.Sprite):
             self.state = "move-up"
         elif (keys[pygame.K_s] or keys[pygame.K_DOWN]) and self.state == "up":
             self.state = "move-down"
+
     def shift(self):
         if self.state == 'move-up':
             self.direction.y = 1
@@ -38,7 +39,6 @@ class MovingBackground(pygame.sprite.Sprite):
             self.state = "up"
 
     def update(self):
-        print(self.state)
         self.check_finished()
         self.get_input()
         self.shift()
