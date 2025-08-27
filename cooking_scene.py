@@ -28,9 +28,9 @@ class CookingScene:
         bg_sprite = MovingBackground(self.moving_background_image)
         self.background.add(bg_sprite)
         left_toast_sprite = Toast('left', self.white_img, self.golden_img, self.brown_img, self.black_img, self.flaming_img)
-        right_toast_sprite = Toast('right', self.white_img, self.golden_img, self.brown_img, self.black_img, self.flaming_img)
+        # right_toast_sprite = Toast('right', self.white_img, self.golden_img, self.brown_img, self.black_img, self.flaming_img)
         self.toasts.add(left_toast_sprite)
-        self.toasts.add(right_toast_sprite)
+        # self.toasts.add(right_toast_sprite)
 
     def run(self):
         self.background.update()
