@@ -2,6 +2,7 @@ import pygame
 from settings import screen_height, screen_width
 from face import Face
 import time
+from support import *
 
 
 class Toast(pygame.sprite.Sprite):
@@ -27,9 +28,39 @@ class Toast(pygame.sprite.Sprite):
         self.face_2 = Face(0, 'white', '2')
         self.face_down = self.face_1
         self.face_up = self.face_2
+        # Keeps flip [SPACE] from double triggering
         self.flip_count = 0
 
+        self.import_toast_assets()
+        self.animation_speed = 0.125
+        self.frame_index = 0
+        self.image = self.animations['white_idle'][self.frame_index]
+        self.animation_status = 'white_idle'
         self.setup_toast()
+
+
+    def import_toast_assets(self):
+        toast_path = 'assets/toast/'
+        self.animations = {'white_idle':[], 'white_rotate':[]}
+
+        for animation in self.animations.keys():
+            full_path = toast_path + animation
+            self.animations[animation] = import_folder(full_path)
+
+    def animate(self):
+        animation = self.animations[self.animation_status]
+
+        # loop over the frame index
+        self.frame_index += self.animation_speed
+        if self.frame_index >= len(animation):
+            self.frame_index = 0
+            if self.animation_status == 'white_rotate':
+                self.animation_status = 'white_idle'
+
+        print(self.frame_index)
+        image = animation[int(self.frame_index)]
+        self.image = image
+
 
     def setup_toast(self):
         if self.side == 'right':
@@ -51,6 +82,7 @@ class Toast(pygame.sprite.Sprite):
             elif self.pos == 'up':
                 self.pos = 'move-down'
         if keys[pygame.K_SPACE]:
+            self.animation_status = 'white_rotate'
             self.toggle_face_down()
             self.flip_count += 1
         else:
@@ -89,21 +121,21 @@ class Toast(pygame.sprite.Sprite):
     def set_image(self):
         if self.face_up.state == 'white':
             print('setting image to white')
-            self.img = self.white_img
+            self.image = self.white_img
         if self.face_up.state == 'golden':
             print('setting image to golden')
-            self.img = self.golden_img
+            self.image = self.golden_img
         if self.face_up.state == 'brown':
-            self.img = self.brown_img
+            self.image = self.brown_img
         if self.face_up.state == 'black':
-            self.img = self.black_img
+            self.image = self.black_img
         if self.face_up.state == 'flaming':
-            self.img = self.flaming_img
+            self.image = self.flaming_img
 
     def update(self):
         self.stop_movement()
         self.get_input()
         self.shift()
         self.cook()
-        # print(self.face_down.state, self.face_down.heat_level)
+        self.animate()
         # print(self.pos)
